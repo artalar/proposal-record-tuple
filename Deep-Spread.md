@@ -12,7 +12,9 @@ cumbersome, because a spread is needed at each level of nesting. As a way to sol
 property definition syntax can be introduced for records, which allows the user to "copy" records and update deeply nested
 properties within them without cumbersome syntax.
 
-These examples demonstrate a possible syntax for deep property definitions on records.
+These examples demonstrate a possible syntax for deep property definitions.
+
+## Records
 
 ```js
 const one = #{
@@ -33,7 +35,7 @@ console.log(one.b.c.d); // 2
 console.log(two.b.c.d); // 4
 ```
 
-Traversal through tuples:
+## Tuples
 
 ```js
 const one = #{
@@ -50,7 +52,7 @@ const two = #{
 console.log(two.b.c); // #[2, 3, 4, [5, 7]]
 ```
 
-Computed properties:
+## Computed properties
 
 ```js
 const one = #{
@@ -78,15 +80,13 @@ const three = #{
 };
 ```
 
-Question! What happens if the deep path does not exist in the value that is being set deeply?
-
-Example:
+## Optional chaining
 
 ```js
-const one = { a: 1 };
+const one = #{ a: 1 };
 
-const two = { b.c: 2, ...one };
+const two = #{ b?.c: 2, ...one };
 
-// Does this fail, or create a record that looks like:
-// #{ a: 1, b: { c: 2 } }
+// Uncaught TypeError: Cannot read property 'c' of undefined
+const three = #{ b.c: 2, ...one };
 ```
